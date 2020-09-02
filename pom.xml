@@ -34,11 +34,23 @@
 			<artifactId>ebay-oauth-java-client</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-		<dependency>
+		<!-- @Trifon -->
+		<!-- dependency>
 			<groupId>ebaysdkcore</groupId>
 			<artifactId>ebaysdkcore</artifactId>
 			<version>1131</version>
+		</dependency-->
+		<!-- dependency>
+			<groupId>com.github.lespaul361</groupId>
+			<artifactId>ebaysdkcore</artifactId>
+			<version>939</version>
+		</dependency-->
+		<dependency>
+			<groupId>io.github.linus87</groupId>
+			<artifactId>ebaysdkcore</artifactId>
+			<version>1065</version>
 		</dependency>
+		<!-- @Trifon -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

@@ -1,0 +1,19 @@
+name: ebay-config
+
+# UPDATE the appid, certid, and devid from https://developer.ebay.com/my/keys
+# UPDATE the redirecturi with the value from `Your branded eBay Sandbox Sign In (OAuth)`
+# https://developer.ebay.com/my/auth?env=sandbox&index=0 ( ....&redirect_uri=<USE_THIS_VALUE>&scope=...)
+api.sandbox.ebay.com:
+    appid: <appid-from-developer-portal>
+    certid: <certid-from-developer-portal>
+    devid: <devid-from-developer-portal>
+    redirecturi: <redirect_uri-from-developer-portal>
+
+# UPDATE the appid, certid, and devid from https://developer.ebay.com/my/keys
+# UPDATE the redirecturi with the value from `Your branded eBay Production Sign In (OAuth)`
+# https://developer.ebay.com/my/auth?env=production&index=0 ( ....&redirect_uri=<USE_THIS_VALUE>&scope=...)
+api.ebay.com:
+    appid: <appid-from-developer-portal>
+    certid: <certid-from-developer-portal>
+    devid: <devid-from-developer-portal>
+    redirecturi: <redirect_uri-from-developer-portal>
