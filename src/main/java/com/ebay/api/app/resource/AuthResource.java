@@ -35,7 +35,7 @@ public class AuthResource {
 	@Path("/app_token")
 	public Response token() {
 		try {
-			final OAuthResponse _res = EBAY_AUTH_API.getApplicationToken(Environment.SANDBOX, Scope.PUBLIC_SCOPE_ONLY);
+			final OAuthResponse _res = EBAY_AUTH_API.getApplicationToken(Environment.SANDBOX, Scope.TRIFON); // old: Scope.PUBLIC_SCOPE_ONLY
 			final ExtendedOAuthResponse res = new ExtendedOAuthResponse(_res);
 			if (res.getErrorMessage() == null) {
 				return Response.ok().entity(res).build();
@@ -54,14 +54,12 @@ public class AuthResource {
 	@Path("/user_authorization_url")
 	public Response userAuthorizationUrl(@QueryParam("redirect") boolean redirect) {
 		try {
-			final URI userAuthUrl = new URI(EBAY_AUTH_API.generateUserAuthorizationUrl(Environment.SANDBOX,
-					Scope.ALL_SCOPES, Optional.empty()));
+			final URI userAuthUrl = new URI(EBAY_AUTH_API.generateUserAuthorizationUrl(Environment.SANDBOX, Scope.ALL_SCOPES, Optional.empty()));
 			if (redirect) {
 				return Response.temporaryRedirect(userAuthUrl).build();
 			} else {
 				return Response.ok().entity(new UserAuthorizationUrlResponse(userAuthUrl)).build();
 			}
-
 		} catch (Exception unexpectedEx) {
 			LOGGER.error("Failed to generate eBay sign in URL.", unexpectedEx);
 			final Message msg = new Message(unexpectedEx.getMessage());

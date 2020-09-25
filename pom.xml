@@ -35,21 +35,22 @@
 			<version>1.1.2</version>
 		</dependency>
 		<!-- @Trifon -->
-		<!-- dependency>
+		<dependency>
 			<groupId>ebaysdkcore</groupId>
 			<artifactId>ebaysdkcore</artifactId>
 			<version>1131</version>
-		</dependency-->
+		</dependency>
 		<!-- dependency>
 			<groupId>com.github.lespaul361</groupId>
 			<artifactId>ebaysdkcore</artifactId>
 			<version>939</version>
 		</dependency-->
-		<dependency>
+		<!-- @Trifon - below works partially -->
+		<!-- dependency>
 			<groupId>io.github.linus87</groupId>
 			<artifactId>ebaysdkcore</artifactId>
 			<version>1065</version>
-		</dependency>
+		</dependency-->
 		<!-- @Trifon -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

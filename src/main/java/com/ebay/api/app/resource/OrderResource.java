@@ -21,37 +21,35 @@ import com.ebay.sdk.call.GetItemCall;
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 
-@Path("/item")
-public class ItemResource {
+@Path("/order")
+public class OrderResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthResource.class);
-
-	private static final DetailLevelCodeType[] RETURN_ALL_ONLY = new DetailLevelCodeType[] {
-		DetailLevelCodeType.RETURN_ALL
-	};
 
 	@Context
 	private HttpServletRequest req;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{itemId}")
-	public Response getItem(@PathParam("itemId") String itemId) {
+	@Path("/{orderId}")
+	public Response getOrder(@PathParam("orderId") String orderId) {
 		final String token;
 		if (StringUtils.isBlank(token = HttpRequestUtil.getOAuthToken(req))) {
 			final Message msg = new Message("An 'Authorization: Bearer <userToken>' header must be present in the request.");
 			return Response.status(Status.UNAUTHORIZED).entity(msg).build();
-		} else if (StringUtils.isBlank(itemId)) {
-			final Message msg = new Message("Invalid item id.");
+		} else if (StringUtils.isBlank(orderId)) {
+			final Message msg = new Message("Invalid Order id.");
 			return Response.status(Status.BAD_REQUEST).entity(msg).build();
 		} else {
 			try {
 				final GetItemCall gc = new GetItemCall(new OAuthApiContext(Environment.PRODUCTION, token));
-				gc.setDetailLevel(RETURN_ALL_ONLY);
-				final ItemType item = gc.getItem(itemId);
+				DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {DetailLevelCodeType.RETURN_ALL};
+				gc.setDetailLevel(detailLevels);
+				final ItemType item = gc.getItem(orderId);
+//				final ItemType item = null;
 				return Response.ok().entity(item).build();
 			} catch (Exception unexpectedEx) {
-				LOGGER.error("Failed to fetch details for item {}", itemId, unexpectedEx);
+				LOGGER.error("Failed to fetch details for order {}", orderId, unexpectedEx);
 				final Message msg = new Message(unexpectedEx.getMessage());
 				return Response.serverError().entity(msg).build();
 			}
