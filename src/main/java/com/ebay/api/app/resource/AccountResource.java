@@ -3,7 +3,6 @@ package com.ebay.api.app.resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,12 +16,12 @@ import org.slf4j.LoggerFactory;
 import com.ebay.api.app.context.OAuthApiContext;
 import com.ebay.api.app.response.Message;
 import com.ebay.api.client.auth.oauth2.model.Environment;
-import com.ebay.sdk.call.GetItemCall;
+import com.ebay.sdk.call.GetAccountCall;
+import com.ebay.soap.eBLBaseComponents.AccountEntryType;
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
-import com.ebay.soap.eBLBaseComponents.ItemType;
 
-@Path("/item")
-public class ItemResource {
+@Path("/account")
+public class AccountResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthResource.class);
 
@@ -35,23 +34,20 @@ public class ItemResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{itemId}")
-	public Response getItem(@PathParam("itemId") String itemId) {
+	@Path("/")
+	public Response getItem() {
 		final String token;
 		if (StringUtils.isBlank(token = HttpRequestUtil.getOAuthToken(req))) {
 			final Message msg = new Message("An 'Authorization: Bearer <userToken>' header must be present in the request.");
 			return Response.status(Status.UNAUTHORIZED).entity(msg).build();
-		} else if (StringUtils.isBlank(itemId)) {
-			final Message msg = new Message("Invalid item id.");
-			return Response.status(Status.BAD_REQUEST).entity(msg).build();
 		} else {
 			try {
-				final GetItemCall gc = new GetItemCall(new OAuthApiContext(Environment.PRODUCTION, token)); // TODO - proper environment
+				final GetAccountCall gc = new GetAccountCall(new OAuthApiContext(Environment.PRODUCTION, token));
 				gc.setDetailLevel(RETURN_ALL_ONLY);
-				final ItemType item = gc.getItem(itemId);
-				return Response.ok().entity(item).build();
+				final AccountEntryType[] accounts = gc.getAccount();
+				return Response.ok().entity(accounts).build();
 			} catch (Exception unexpectedEx) {
-				LOGGER.error("Failed to fetch details for item {}", itemId, unexpectedEx);
+				LOGGER.error("Failed to fetch details account", unexpectedEx);
 				final Message msg = new Message(unexpectedEx.getMessage());
 				return Response.serverError().entity(msg).build();
 			}

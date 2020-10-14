@@ -102,3 +102,9 @@ https://localhost:11443/v1/auth/user_authorization_url
 
 https://localhost:11443/v1/auth/user_token
 
+### Example eBay requests
+
+https://localhost:11443/v1/account
+https://localhost:11443/v1/item/392956799359
+https://localhost:11443/v1/item/392963518892
+https://localhost:11443/v1/orders

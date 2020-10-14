@@ -35,7 +35,7 @@ public class AuthResource {
 	@Path("/app_token")
 	public Response token() {
 		try {
-			final OAuthResponse _res = EBAY_AUTH_API.getApplicationToken(Environment.SANDBOX, Scope.TRIFON); // old: Scope.PUBLIC_SCOPE_ONLY
+			final OAuthResponse _res = EBAY_AUTH_API.getApplicationToken(Environment.PRODUCTION, Scope.PUBLIC_SCOPE_ONLY); // old: Scope.PUBLIC_SCOPE_ONLY
 			final ExtendedOAuthResponse res = new ExtendedOAuthResponse(_res);
 			if (res.getErrorMessage() == null) {
 				return Response.ok().entity(res).build();
@@ -54,7 +54,7 @@ public class AuthResource {
 	@Path("/user_authorization_url")
 	public Response userAuthorizationUrl(@QueryParam("redirect") boolean redirect) {
 		try {
-			final URI userAuthUrl = new URI(EBAY_AUTH_API.generateUserAuthorizationUrl(Environment.SANDBOX, Scope.ALL_SCOPES, Optional.empty()));
+			final URI userAuthUrl = new URI(EBAY_AUTH_API.generateUserAuthorizationUrl(Environment.PRODUCTION, Scope.ALL_SCOPES, Optional.empty()));
 			if (redirect) {
 				return Response.temporaryRedirect(userAuthUrl).build();
 			} else {
@@ -75,7 +75,7 @@ public class AuthResource {
 			return userAuthorizationUrl(true);
 		} else {
 			try {
-				final OAuthResponse res = EBAY_AUTH_API.exchangeCodeForAccessToken(Environment.SANDBOX, code);
+				final OAuthResponse res = EBAY_AUTH_API.exchangeCodeForAccessToken(Environment.PRODUCTION, code);
 				if (StringUtils.isBlank(res.getErrorMessage())) {
 					return Response.ok().entity(res).build();
 				} else {

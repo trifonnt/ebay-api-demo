@@ -6,6 +6,7 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
+import com.ebay.api.app.resource.AccountResource;
 import com.ebay.api.app.resource.AuthResource;
 import com.ebay.api.app.resource.ItemResource;
 //import com.ebay.api.app.resource.ItemResource;
@@ -20,6 +21,7 @@ public class eBayAPIDemoServiceResourceConfig extends ResourceConfig {
 		super.register(AuthResource.class);
 		super.register(OrderResource.class);
 		super.register(ItemResource.class);
+		super.register(AccountResource.class);
 	}
 
 }
