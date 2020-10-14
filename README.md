@@ -102,7 +102,7 @@ https://localhost:11443/v1/auth/user_authorization_url
 
 https://localhost:11443/v1/auth/user_token
 
-### Example eBay requests
+### Example eBay requests; Use token from previous request(GetUserToken) in "Authorization: Bearer ..." header.
 
 https://localhost:11443/v1/account
 https://localhost:11443/v1/item/392956799359
